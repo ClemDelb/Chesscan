@@ -1152,11 +1152,10 @@ function addProgressRow(depth, rawScore, move) {
     scoreStr = '—'; scoreCls = ''; evalVal = null;
   }
 
-  row.innerHTML = `
-    <span class="pr-depth">${depth}</span>
-    <span class="pr-score ${scoreCls}">${scoreStr}</span>
-    <span class="pr-move">${move}</span>
-  `;
+  const mkSpan = (cls, txt) => { const s = document.createElement('span'); s.className = cls; s.textContent = txt; return s; };
+  row.appendChild(mkSpan('pr-depth', depth));
+  row.appendChild(mkSpan(`pr-score ${scoreCls}`, scoreStr));
+  row.appendChild(mkSpan('pr-move', move));
   $prog.appendChild(row);
   $prog.scrollTop = $prog.scrollHeight;
 
