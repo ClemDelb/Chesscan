@@ -665,6 +665,7 @@ const SQ  = 62; // px, doit correspondre à --sq-size
 
 // ── État global ───────────────────────────────────────────────────────────────
 let pieces    = {};
+let flipped   = false;
 let worker    = null;
 let analyzing = false;
 let lastDepth = 0;
@@ -742,16 +743,25 @@ function formatMove(move, p) {
   return d;
 }
 
+// ── Coordinates update ────────────────────────────────────────────────────────
+function updateCoords() {
+  const files = flipped ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
+  const ranks = flipped ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
+  document.querySelectorAll('#coord-file span').forEach((s, i) => s.textContent = files[i]);
+  document.querySelectorAll('#coord-rank span').forEach((s, i) => s.textContent = ranks[i]);
+}
+
 // ── Board rendering ───────────────────────────────────────────────────────────
 function renderBoard(p, fromSq, toSq) {
   $board.innerHTML = '';
   clearArrow();
+  updateCoords();
 
-  // Draw 64 squares: row 0 = rank 8, col 0 = file a
+  // Draw 64 squares, respecting board orientation
   for (let row = 0; row < 8; row++) {
     for (let col = 0; col < 8; col++) {
-      const file  = col + 1;
-      const rank  = 8 - row;
+      const file  = flipped ? 8 - col : col + 1;
+      const rank  = flipped ? row + 1 : 8 - row;
       const key   = `${file}${rank}`;
       const light = (file + rank) % 2 === 0;
 
@@ -785,11 +795,11 @@ function drawArrow(uciMove) {
   const ff = uciMove.charCodeAt(0) - 96, fr = +uciMove[1];
   const tf = uciMove.charCodeAt(2) - 96, tr = +uciMove[3];
 
-  // Center of each square in px (board origin = top-left = a8)
-  const x1 = (ff - 1) * SQ + SQ / 2;
-  const y1 = (8 - fr) * SQ + SQ / 2;
-  const x2 = (tf - 1) * SQ + SQ / 2;
-  const y2 = (8 - tr) * SQ + SQ / 2;
+  // Center of each square in px, respecting board orientation
+  const x1 = flipped ? (8 - ff) * SQ + SQ / 2 : (ff - 1) * SQ + SQ / 2;
+  const y1 = flipped ? (fr - 1) * SQ + SQ / 2 : (8 - fr) * SQ + SQ / 2;
+  const x2 = flipped ? (8 - tf) * SQ + SQ / 2 : (tf - 1) * SQ + SQ / 2;
+  const y2 = flipped ? (tr - 1) * SQ + SQ / 2 : (8 - tr) * SQ + SQ / 2;
 
   const TOTAL = Math.hypot(x2 - x1, y2 - y1);
   const SW    = SQ * 0.18;        // stroke width
@@ -969,7 +979,14 @@ function handleLine(line) {
     if (depth <= lastDepth) return;
     lastDepth = depth;
 
-    addProgressRow(depth, sM ? [sM[1], sM[2]] : null, pM[1]);
+    // Stockfish scores are from side-to-move perspective; normalize to white's perspective
+    const turn = document.querySelector('input[name=turn]:checked').value;
+    let normScore = null;
+    if (sM) {
+      const sign = turn === 'b' ? -1 : 1;
+      normScore = [sM[1], String(sign * +sM[2])];
+    }
+    addProgressRow(depth, normScore, pM[1]);
     setStatus('loading', `Analyse… depth ${depth}`);
   }
 
@@ -1061,9 +1078,13 @@ document.querySelectorAll('input[name=turn]').forEach(radio => {
   radio.closest('label').addEventListener('click', () => {
     document.querySelectorAll('.radio-pill').forEach(p => p.classList.remove('active'));
     radio.closest('label').classList.add('active');
+    flipped = radio.value === 'b';
     if (Object.keys(pieces).length) {
       const fen = buildFen(pieces, radio.value);
       $fen.textContent = fen;
+      renderBoard(pieces);
+    } else {
+      updateCoords();
     }
   });
 });
