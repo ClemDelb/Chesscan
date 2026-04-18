@@ -121,12 +121,13 @@ header {
   border-bottom: 1px solid var(--border);
   box-shadow: 0 2px 20px rgba(0,0,0,.4);
 }
-header .logo { font-size: 26px; }
+header .logo { font-size: 26px; line-height: 1; }
 header h1 {
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: .5px;
   color: var(--text);
+  line-height: 1;
 }
 header h1 span { color: var(--green); }
 header h1 .split-s {
@@ -619,6 +620,26 @@ input[type=range]::-webkit-slider-thumb {
 [data-theme="light"] header { box-shadow: 0 2px 10px rgba(0,0,0,.07); }
 
 /* ─── Header controls ──────────────────────────────────────────────────────── */
+.btn-how-inline {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: .82rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  opacity: .7;
+  transition: opacity .15s;
+  white-space: nowrap;
+}
+.btn-how-inline:hover { opacity: 1; }
 .header-controls { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .ctrl-btn {
   background: var(--card);
@@ -656,6 +677,121 @@ input[type=range]::-webkit-slider-thumb {
   flex-shrink: 0;
   user-select: none;
 }
+/* ─── Modal ────────────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  width: min(520px, calc(100vw - 32px));
+  box-shadow: 0 24px 64px rgba(0,0,0,.55);
+  overflow: hidden;
+  transform: scale(.95) translateY(10px);
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.modal-overlay.open .modal { transform: scale(1) translateY(0); }
+.modal-header {
+  padding: 18px 22px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-title { font-size: .95rem; font-weight: 700; color: var(--text); }
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  border-radius: 6px;
+  transition: color .15s, background .15s;
+}
+.modal-close-btn:hover { background: var(--card); color: var(--text); }
+.carousel-inner { overflow: hidden; }
+.carousel-track {
+  display: flex;
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+}
+.carousel-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+  padding: 32px 36px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+.slide-icon { font-size: 2.8rem; line-height: 1; margin-bottom: 4px; }
+.slide-label {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.slide-title { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+.slide-desc {
+  font-size: .84rem;
+  color: var(--text-dim);
+  line-height: 1.65;
+  max-width: 380px;
+}
+.slide-desc code {
+  font-family: 'Consolas', monospace;
+  font-size: .78rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--green);
+}
+.carousel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px 18px;
+  border-top: 1px solid var(--border);
+}
+.carousel-arrow {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 6px 16px;
+  transition: all .15s;
+}
+.carousel-arrow:hover:not(:disabled) { border-color: var(--border2); background: var(--card2); color: var(--text); }
+.carousel-arrow:disabled { opacity: .3; cursor: default; }
+.carousel-dots { display: flex; gap: 7px; align-items: center; }
+.carousel-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--border2);
+  border: none;
+  cursor: pointer;
+  transition: all .25s;
+  padding: 0;
+}
+.carousel-dot.active { background: var(--green); width: 20px; border-radius: 4px; }
+
 .tooltip-popup {
   position: fixed;
   transform: translateX(-50%);
@@ -680,6 +816,7 @@ input[type=range]::-webkit-slider-thumb {
 <header>
   <span class="logo">♛</span>
   <h1>Ches<span class="split-s">s</span><span>can</span></h1>
+  <button class="btn-how-inline" id="btn-how" data-i18n="btnHow">Comment ça fonctionne ?</button>
   <div class="header-controls">
     <span class="badge">Stockfish 18</span>
     <div class="lang-group">
@@ -807,6 +944,24 @@ input[type=range]::-webkit-slider-thumb {
 
 </main>
 
+<!-- ── Modal "Comment ça fonctionne ?" ──────────────────────────────────── -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" data-i18n="modalTitle">Comment ça fonctionne ?</span>
+      <button class="modal-close-btn" id="modal-close">×</button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-track" id="carousel-track"></div>
+    </div>
+    <div class="carousel-footer">
+      <button class="carousel-arrow" id="carousel-prev">&#8592;</button>
+      <div class="carousel-dots" id="carousel-dots"></div>
+      <button class="carousel-arrow" id="carousel-next">&#8594;</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ═══════════════════════════════════════════════════════════════════════════════
 //  Chesscan — logique frontend
@@ -851,6 +1006,16 @@ const LANGS = {
     tooltipHtml:"Clic droit sur l'échiquier chess.com → Inspecter → copie le contenu de la balise <wc-chess-board>.",
     tooltipTurn:"Indique quelle couleur joue le prochain coup. L'évaluation est toujours du point de vue des blancs.",
     tooltipDepth:"Plus la valeur est haute, plus l'analyse est précise mais lente. 20 est un bon compromis.",
+    btnHow:"Comment ça fonctionne ?",
+    modalTitle:"Comment ça fonctionne ?",
+    howSteps:[
+      { icon:'♟', label:'Introduction',  title:'Bienvenue sur Chesscan',           desc:"Chesscan analyse n'importe quelle position chess.com avec Stockfish 18, directement dans ton navigateur. Aucune installation, 100&nbsp;% gratuit." },
+      { icon:'🌐', label:'Étape 1 sur 5', title:'Ouvrir une partie chess.com',       desc:"Va sur chess.com et positionne-toi sur une partie en cours ou terminée. L'échiquier doit être visible à l'écran." },
+      { icon:'🔍', label:'Étape 2 sur 5', title:"Ouvrir l'inspecteur",               desc:"Fais un <strong>clic droit</strong> sur l'échiquier puis clique sur « Inspecter » (ou appuie sur <strong>F12</strong>). Le panneau développeur s'ouvre." },
+      { icon:'📋', label:'Étape 3 sur 5', title:"Copier le HTML de l'échiquier",     desc:"Dans le panneau HTML, repère la balise <code>&lt;wc-chess-board&gt;</code>. Fais un clic droit dessus → « Copier » → « Copier l'élément »." },
+      { icon:'⚙️', label:'Étape 4 sur 5', title:'Coller et configurer',              desc:"Colle le HTML dans la zone de texte de Chesscan. Sélectionne quelle couleur a le trait et ajuste la profondeur si besoin." },
+      { icon:'⚡', label:'Étape 5 sur 5', title:'Analyser !',                         desc:"Clique sur « Analyser ». Stockfish 18 calcule le meilleur coup en temps réel. La <strong>flèche verte</strong> sur l'échiquier indique le coup recommandé." },
+    ],
   },
   en: {
     panelPosition:'Position', panelBoard:'Board', panelAnalysis:'Analysis',
@@ -877,6 +1042,16 @@ const LANGS = {
     tooltipHtml:"Right-click the chess.com board → Inspect → copy the <wc-chess-board> tag content.",
     tooltipTurn:"Indicates which color plays next. Evaluation is always from White's perspective.",
     tooltipDepth:"Higher depth means more accurate but slower analysis. 20 is a good balance.",
+    btnHow:"How does it work?",
+    modalTitle:"How does it work?",
+    howSteps:[
+      { icon:'♟', label:'Introduction',  title:'Welcome to Chesscan',              desc:"Chesscan analyzes any chess.com position using Stockfish 18, directly in your browser. No installation needed, 100% free." },
+      { icon:'🌐', label:'Step 1 of 5',  title:'Open a chess.com game',            desc:"Go to chess.com and navigate to a game in progress or a finished one. The chessboard must be visible on screen." },
+      { icon:'🔍', label:'Step 2 of 5',  title:'Open the inspector',               desc:"<strong>Right-click</strong> on the chessboard and select « Inspect » (or press <strong>F12</strong>). The developer tools panel will open." },
+      { icon:'📋', label:'Step 3 of 5',  title:'Copy the board HTML',              desc:"In the HTML panel, find the <code>&lt;wc-chess-board&gt;</code> tag. Right-click on it → « Copy » → « Copy element »." },
+      { icon:'⚙️', label:'Step 4 of 5',  title:'Paste and configure',              desc:"Paste the HTML into Chesscan's text area. Select which color has the turn and adjust the depth if needed." },
+      { icon:'⚡', label:'Step 5 of 5',  title:'Analyze!',                          desc:"Click « Analyze ». Stockfish 18 calculates the best move in real time. The <strong>green arrow</strong> on the board shows the recommended move." },
+    ],
   },
 };
 
@@ -896,6 +1071,7 @@ function applyLang() {
   $stxt.textContent = t('statusWaiting');
   document.getElementById('btn-lang-fr').classList.toggle('active', lang === 'fr');
   document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+  if ($overlay.classList.contains('open')) buildSlides();
 }
 
 function applyTheme() {
@@ -1332,6 +1508,61 @@ document.querySelectorAll('input[name=turn]').forEach(radio => {
 
 // Depth slider
 $depth.addEventListener('input', () => { $dval.textContent = $depth.value; });
+
+// ── Modal "Comment ça fonctionne ?" ──────────────────────────────────────────
+const $overlay = document.getElementById('modal-overlay');
+const $track   = document.getElementById('carousel-track');
+const $dots    = document.getElementById('carousel-dots');
+const $prev    = document.getElementById('carousel-prev');
+const $next    = document.getElementById('carousel-next');
+let slideIndex = 0;
+
+function buildSlides() {
+  const steps = LANGS[lang].howSteps;
+  $track.innerHTML = '';
+  $dots.innerHTML  = '';
+  steps.forEach((step, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'carousel-slide';
+    const icon  = document.createElement('span'); icon.className = 'slide-icon';  icon.textContent = step.icon;
+    const lbl   = document.createElement('span'); lbl.className  = 'slide-label'; lbl.textContent  = step.label;
+    const title = document.createElement('span'); title.className = 'slide-title'; title.textContent = step.title;
+    const desc  = document.createElement('p');   desc.className  = 'slide-desc';  desc.innerHTML   = step.desc;
+    slide.append(icon, lbl, title, desc);
+    $track.appendChild(slide);
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    $dots.appendChild(dot);
+  });
+  goTo(slideIndex, false);
+}
+
+function goTo(i, animate = true) {
+  const total = LANGS[lang].howSteps.length;
+  if (!animate) $track.style.transition = 'none';
+  slideIndex = Math.max(0, Math.min(i, total - 1));
+  $track.style.transform = `translateX(-${slideIndex * 100}%)`;
+  if (!animate) requestAnimationFrame(() => { $track.style.transition = ''; });
+  $dots.querySelectorAll('.carousel-dot').forEach((d, j) => d.classList.toggle('active', j === slideIndex));
+  $prev.disabled = slideIndex === 0;
+  $next.disabled = slideIndex === total - 1;
+}
+
+function openModal()  { slideIndex = 0; buildSlides(); $overlay.classList.add('open'); }
+function closeModal() { $overlay.classList.remove('open'); }
+
+document.getElementById('btn-how').addEventListener('click', openModal);
+document.getElementById('modal-close').addEventListener('click', closeModal);
+$overlay.addEventListener('click', e => { if (e.target === $overlay) closeModal(); });
+$prev.addEventListener('click', () => goTo(slideIndex - 1));
+$next.addEventListener('click', () => goTo(slideIndex + 1));
+document.addEventListener('keydown', e => {
+  if (!$overlay.classList.contains('open')) return;
+  if (e.key === 'Escape')      closeModal();
+  if (e.key === 'ArrowLeft')   goTo(slideIndex - 1);
+  if (e.key === 'ArrowRight')  goTo(slideIndex + 1);
+});
 
 // ── Tooltips (fixed au body pour éviter le clipping overflow) ────────────────
 (function initTooltips() {
