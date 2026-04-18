@@ -5,25 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- SEO de base -->
-<title>ChessBot Analyzer – Analyse ta position chess.com avec Stockfish</title>
+<title>Chesscan – Analyse ta position chess.com avec Stockfish</title>
 <meta name="description" content="Analyse instantanément n'importe quelle position chess.com avec le moteur Stockfish 18. Colle le HTML de ton plateau, obtiens le meilleur coup, l'évaluation et la barre d'avantage. 100 % gratuit et dans le navigateur.">
 <meta name="keywords" content="analyseur échecs, analyse position chess.com, Stockfish en ligne, analyse échecs gratuite, meilleur coup échecs, FEN générateur, outil analyse échecs, chess analyzer, analyser partie chess.com">
-<meta name="author" content="ChessBot Analyzer">
+<meta name="author" content="Chesscan">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://chesscan.app/">
 
 <!-- Open Graph (Facebook, Discord, WhatsApp…) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://chesscan.app/">
-<meta property="og:title" content="ChessBot Analyzer – Analyse ta position chess.com avec Stockfish">
+<meta property="og:title" content="Chesscan – Analyse ta position chess.com avec Stockfish">
 <meta property="og:description" content="Analyse instantanément n'importe quelle position chess.com avec Stockfish 18. Obtiens le meilleur coup et l'évaluation en un clic, gratuitement.">
 <meta property="og:image" content="https://chesscan.app/images/img.png">
 <meta property="og:locale" content="fr_FR">
-<meta property="og:site_name" content="ChessBot Analyzer">
+<meta property="og:site_name" content="Chesscan">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ChessBot Analyzer – Analyse ta position chess.com avec Stockfish">
+<meta name="twitter:title" content="Chesscan – Analyse ta position chess.com avec Stockfish">
 <meta name="twitter:description" content="Analyse instantanément n'importe quelle position chess.com avec Stockfish 18. Obtiens le meilleur coup et l'évaluation en un clic, gratuitement.">
 <meta name="twitter:image" content="https://chesscan.app/images/img.png">
 
@@ -32,7 +32,7 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "ChessBot Analyzer",
+  "name": "Chesscan",
   "url": "https://chesscan.app/",
   "description": "Analyse instantanément n'importe quelle position chess.com avec le moteur Stockfish 18 directement dans le navigateur.",
   "applicationCategory": "GameApplication",
@@ -107,6 +107,12 @@ header h1 {
   color: var(--text);
 }
 header h1 span { color: var(--green); }
+header h1 .split-s {
+  background: linear-gradient(to right, var(--text) 50%, var(--green) 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 header .badge {
   margin-left: auto;
   font-size: .72rem;
@@ -581,7 +587,7 @@ input[type=range]::-webkit-slider-thumb {
 
 <header>
   <span class="logo">♛</span>
-  <h1>Chess<span>Bot</span> Analyzer</h1>
+  <h1>Ches<span class="split-s">s</span><span>can</span></h1>
   <span class="badge">Stockfish 18</span>
 </header>
 
@@ -695,7 +701,7 @@ input[type=range]::-webkit-slider-thumb {
 
 <script>
 // ═══════════════════════════════════════════════════════════════════════════════
-//  ChessBot — logique frontend
+//  Chesscan — logique frontend
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // ── Constantes ────────────────────────────────────────────────────────────────

@@ -12,5 +12,5 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/stockfish", express.static(path.join(__dirname, "node_modules/stockfish/bin")));
 
 app.listen(PORT, () => {
-  console.log(`\n  ChessBot Analyzer → http://localhost:${PORT}\n`);
+  console.log(`\n  Chesscan → http://localhost:${PORT}\n`);
 });
