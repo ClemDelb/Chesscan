@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,9 +14,9 @@
 </script>
 
 <!-- SEO de base -->
-<title>Chesscan – Analyseur de position chess.com gratuit | Stockfish 18</title>
-<meta name="description" content="Analyse ta position chess.com avec Stockfish 18, gratuitement dans le navigateur. Colle le HTML du plateau, obtiens le meilleur coup, l'évaluation et la barre d'avantage en temps réel.">
-<meta name="keywords" content="analyseur d'échecs, analyse position chess.com, Stockfish en ligne gratuit, analyse d'échecs en ligne, meilleur coup échecs, FEN générateur, outil analyse chess.com, chess analyzer online, chess position analyzer, échecs analyse gratuite, analyser partie chess.com">
+<title>Chesscan – Free chess.com Position Analyzer | Stockfish 18</title>
+<meta name="description" content="Analyze your chess.com position with Stockfish 18, for free, directly in your browser. Paste the board HTML, get the best move, evaluation score, and advantage bar in real time.">
+<meta name="keywords" content="chess analyzer, chess.com position analysis, free Stockfish online, online chess analysis, best chess move, FEN generator, chess.com analysis tool, chess position analyzer, analyze chess.com game">
 <meta name="author" content="Chesscan">
 <meta name="google-adsense-account" content="ca-pub-7913002726466701">
 <meta name="robots" content="index, follow">
@@ -31,19 +31,19 @@
 <!-- Open Graph (Facebook, Discord, WhatsApp…) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://chesscan.app/">
-<meta property="og:title" content="Chesscan – Analyseur de position chess.com gratuit | Stockfish 18">
-<meta property="og:description" content="Analyse ta position chess.com avec Stockfish 18, gratuitement dans le navigateur. Meilleur coup, évaluation et barre d'avantage en temps réel.">
+<meta property="og:title" content="Chesscan – Free chess.com Position Analyzer | Stockfish 18">
+<meta property="og:description" content="Analyze your chess.com position with Stockfish 18, for free, directly in your browser. Best move, evaluation score, and advantage bar in real time.">
 <meta property="og:image" content="https://chesscan.app/images/img.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:locale" content="fr_FR">
-<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="fr_FR">
 <meta property="og:site_name" content="Chesscan">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Chesscan – Analyseur de position chess.com gratuit | Stockfish 18">
-<meta name="twitter:description" content="Analyse ta position chess.com avec Stockfish 18, gratuitement dans le navigateur. Meilleur coup, évaluation et barre d'avantage en temps réel.">
+<meta name="twitter:title" content="Chesscan – Free chess.com Position Analyzer | Stockfish 18">
+<meta name="twitter:description" content="Analyze your chess.com position with Stockfish 18, for free, directly in your browser. Best move, evaluation score, and advantage bar in real time.">
 <meta name="twitter:image" content="https://chesscan.app/images/img.png">
 
 <!-- JSON-LD : WebApplication -->
@@ -53,26 +53,26 @@
   "@type": "WebApplication",
   "name": "Chesscan",
   "url": "https://chesscan.app/",
-  "description": "Analyseur de position chess.com utilisant le moteur Stockfish 18 WebAssembly, entièrement dans le navigateur. Gratuit, sans inscription.",
+  "description": "chess.com position analyzer powered by Stockfish 18 WebAssembly, running entirely in the browser. Free, no account required.",
   "applicationCategory": "GameApplication",
   "applicationSubCategory": "Chess",
   "operatingSystem": "Any",
   "browserRequirements": "Requires JavaScript. Requires WebAssembly.",
-  "inLanguage": ["fr-FR", "en-US"],
+  "inLanguage": ["en-US", "fr-FR"],
   "isAccessibleForFree": true,
   "offers": {
     "@type": "Offer",
     "price": "0",
-    "priceCurrency": "EUR"
+    "priceCurrency": "USD"
   },
   "featureList": [
-    "Analyse de position chess.com",
-    "Moteur Stockfish 18 WebAssembly",
-    "Génération de FEN automatique",
-    "Barre d'évaluation en temps réel",
-    "Affichage du meilleur coup avec flèche SVG",
-    "Interface disponible en français et en anglais",
-    "Mode clair et mode sombre"
+    "chess.com position analysis",
+    "Stockfish 18 WebAssembly engine",
+    "Automatic FEN generation",
+    "Real-time evaluation bar",
+    "Best move display with SVG arrow",
+    "English and French interface",
+    "Light and dark mode"
   ]
 }
 </script>
@@ -891,7 +891,7 @@ input[type=range]::-webkit-slider-thumb {
   <div class="header-controls">
     <span class="badge">Stockfish 18</span>
     <div class="lang-dropdown" id="lang-dropdown">
-      <button class="ctrl-btn theme-btn" id="btn-lang-toggle"><img class="flag-icon" src="https://flagcdn.com/fr.svg" alt="FR"></button>
+      <button class="ctrl-btn theme-btn" id="btn-lang-toggle"><img class="flag-icon" src="https://flagcdn.com/gb.svg" alt="EN"></button>
       <div class="lang-menu" id="lang-menu">
         <button class="lang-option" data-lang="fr"><img class="flag-icon" src="https://flagcdn.com/fr.svg" alt="FR"></button>
         <button class="lang-option" data-lang="en"><img class="flag-icon" src="https://flagcdn.com/gb.svg" alt="EN"></button>
@@ -1159,7 +1159,7 @@ const LANGS = {
   },
 };
 
-let lang  = localStorage.getItem('lang')  || 'fr';
+let lang  = localStorage.getItem('lang')  || 'en';
 let theme = localStorage.getItem('theme') || 'dark';
 
 function t(key) { return LANGS[lang][key]; }
