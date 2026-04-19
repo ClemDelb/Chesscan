@@ -947,7 +947,7 @@ input[type=range]::-webkit-slider-thumb {
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" style="display:none">
       <span class="form-label" data-i18n="labelFen">FEN généré</span>
       <div class="fen-box empty" id="fen-display">En attente d'une position…</div>
     </div>
@@ -1096,7 +1096,7 @@ const START_POSITION = {
 const LANGS = {
   fr: {
     panelPosition:'Position', panelBoard:'Échiquier', panelAnalysis:'Analyse',
-    labelHtml:'Coller le HTML <wc-chess-board>', labelTurn:'Trait à',
+    labelHtml:'Coller le HTML <wc-chess-board>', labelTurn:"C'est au tour de",
     labelWhite:' Blancs', labelBlack:' Noirs',
     labelDepth:"Profondeur d'analyse", labelFen:'FEN généré',
     btnAnalyze:' Analyser', btnReset:'Réinitialiser',
@@ -1134,7 +1134,7 @@ const LANGS = {
   },
   en: {
     panelPosition:'Position', panelBoard:'Board', panelAnalysis:'Analysis',
-    labelHtml:'Paste HTML <wc-chess-board>', labelTurn:'Turn',
+    labelHtml:'Paste HTML <wc-chess-board>', labelTurn:"Player's turn",
     labelWhite:' White', labelBlack:' Black',
     labelDepth:'Analysis depth', labelFen:'Generated FEN',
     btnAnalyze:' Analyze', btnReset:'Reset',
