@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0e1015;
+    color: #e8eaf0;
+    width: 260px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-icon { font-size: 22px; line-height: 1; }
+  .logo-text { font-size: 1.1rem; font-weight: 700; letter-spacing: .5px; }
+  .logo-text span { color: #76c442; }
+  .badge {
+    margin-left: auto;
+    font-size: .65rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: #4a8028;
+    color: #76c442;
+    font-weight: 600;
+  }
+  #status {
+    font-size: .78rem;
+    padding: 8px 10px;
+    border-radius: 7px;
+    line-height: 1.4;
+  }
+  .status-ok      { background: rgba(118,196,66,.12); color: #76c442; border: 1px solid #4a8028; }
+  .status-warning { background: rgba(240,192,64,.1);  color: #f0c040; border: 1px solid #7a6010; }
+  .status-error   { background: rgba(224,82,82,.1);   color: #e05252; border: 1px solid #7a2020; }
+  .status-loading { background: rgba(118,196,66,.08); color: #7a859a; border: 1px solid #2e3448; }
+  #btn-analyze {
+    width: 100%;
+    padding: 11px;
+    background: #76c442;
+    color: #0a1a04;
+    border: none;
+    border-radius: 9px;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  #btn-analyze:hover:not(:disabled) { background: #8ed454; }
+  #btn-analyze:disabled { opacity: .4; cursor: default; }
+</style>
+</head>
+<body>
+  <div class="logo">
+    <span class="logo-icon">♛</span>
+    <span class="logo-text">Chess<span>can</span></span>
+    <span class="badge">SF 18</span>
+  </div>
+  <div id="status" class="status-loading">Checking current tab…</div>
+  <button id="btn-analyze" disabled>Analyze position</button>
+  <script src="popup.js"></script>
+</body>
+</html>

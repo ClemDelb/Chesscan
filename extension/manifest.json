@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Chesscan Analyzer",
+  "version": "1.0",
+  "description": "Send your chess.com board position to Chesscan for instant Stockfish 18 analysis.",
+  "permissions": ["activeTab", "scripting", "storage", "tabs"],
+  "host_permissions": [
+    "https://www.chess.com/*",
+    "https://chesscan.app/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chesscan.app/*"],
+      "js": ["chesscan_bridge.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
