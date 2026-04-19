@@ -1294,6 +1294,7 @@ function onPieceDrop(fromKey, toKey) {
   if (fromKey === toKey || !pieces[fromKey]) return;
   pieces[toKey] = pieces[fromKey];
   delete pieces[fromKey];
+  $html.value = '';
   const turn = document.querySelector('input[name=turn]:checked').value;
   $fen.textContent = buildFen(pieces, turn);
   $fen.classList.remove('empty');
