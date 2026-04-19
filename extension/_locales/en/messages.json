@@ -1,0 +1,11 @@
+{
+  "extName":        { "message": "Chesscan - Chess Position Analyzer" },
+  "extDescription": { "message": "Instantly send your chess.com board position to Chesscan for real-time Stockfish 18 analysis. One click, no copy-paste." },
+  "btnLabel":       { "message": "Analyze position" },
+  "checking":       { "message": "Checking current tab…" },
+  "notChess":       { "message": "Go to chess.com to analyze a position." },
+  "ready":          { "message": "chess.com detected — ready." },
+  "extracting":     { "message": "Extracting board…" },
+  "noBoard":        { "message": "No board found. Open a game first." },
+  "error":          { "message": "Unexpected error." }
+}

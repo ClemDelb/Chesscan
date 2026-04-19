@@ -10,7 +10,7 @@
 
 Analyse de position d'échecs en temps réel à partir du HTML de chess.com. Colle le contenu d'un échiquier `wc-chess-board`, l'app génère le FEN et lance Stockfish 18 directement dans le navigateur via WebAssembly.
 
-![Screenshot](public/images/img.png)
+![Screenshot](public/images/screenshots/app.png)
 
 ---
 

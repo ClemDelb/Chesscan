@@ -1,0 +1,11 @@
+{
+  "extName":        { "message": "Chesscan - Analyseur de position d'échecs" },
+  "extDescription": { "message": "Envoyez votre position chess.com vers Chesscan pour une analyse Stockfish 18 en temps réel. Un clic, sans copier-coller." },
+  "btnLabel":       { "message": "Analyser la position" },
+  "checking":       { "message": "Vérification de l'onglet…" },
+  "notChess":       { "message": "Rendez-vous sur chess.com d'abord." },
+  "ready":          { "message": "chess.com détecté — prêt." },
+  "extracting":     { "message": "Extraction du plateau…" },
+  "noBoard":        { "message": "Aucun plateau trouvé. Ouvre une partie." },
+  "error":          { "message": "Erreur inattendue." }
+}

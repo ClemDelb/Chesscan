@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Chesscan Analyzer",
+  "name": "__MSG_extName__",
   "version": "1.0",
-  "description": "Send your chess.com board position to Chesscan for instant Stockfish 18 analysis.",
+  "default_locale": "en",
+  "description": "__MSG_extDescription__",
   "permissions": ["activeTab", "scripting", "storage", "tabs"],
   "host_permissions": [
     "https://www.chess.com/*",

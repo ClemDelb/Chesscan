@@ -1,19 +1,9 @@
-const isFr = navigator.language.startsWith('fr');
-
-const T = {
-  checking:   isFr ? 'Vérification de l\'onglet…'              : 'Checking current tab…',
-  notChess:   isFr ? 'Rendez-vous sur chess.com d\'abord.'     : 'Go to chess.com to analyze a position.',
-  ready:      isFr ? 'chess.com détecté — prêt.'               : 'chess.com detected — ready.',
-  extracting: isFr ? 'Extraction du plateau…'                  : 'Extracting board…',
-  noBoard:    isFr ? 'Aucun plateau trouvé. Ouvre une partie.' : 'No board found. Open a game first.',
-  btnLabel:   isFr ? 'Analyser la position'                    : 'Analyze position',
-  error:      isFr ? 'Erreur inattendue.'                      : 'Unexpected error.',
-};
+const i18n = key => chrome.i18n.getMessage(key);
 
 const btn    = document.getElementById('btn-analyze');
 const status = document.getElementById('status');
 
-btn.textContent = T.btnLabel;
+btn.textContent = i18n('btnLabel');
 
 function setStatus(type, text) {
   status.className = `status-${type}`;
@@ -21,20 +11,20 @@ function setStatus(type, text) {
 }
 
 async function init() {
-  setStatus('loading', T.checking);
+  setStatus('loading', i18n('checking'));
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   if (!tab?.url?.includes('chess.com')) {
-    setStatus('warning', T.notChess);
+    setStatus('warning', i18n('notChess'));
     return;
   }
 
-  setStatus('ok', T.ready);
+  setStatus('ok', i18n('ready'));
   btn.disabled = false;
 
   btn.addEventListener('click', async () => {
     btn.disabled = true;
-    setStatus('loading', T.extracting);
+    setStatus('loading', i18n('extracting'));
 
     try {
       const [{ result: html }] = await chrome.scripting.executeScript({
@@ -46,7 +36,7 @@ async function init() {
       });
 
       if (!html) {
-        setStatus('error', T.noBoard);
+        setStatus('error', i18n('noBoard'));
         btn.disabled = false;
         return;
       }
@@ -64,7 +54,7 @@ async function init() {
 
       window.close();
     } catch (err) {
-      setStatus('error', err.message || T.error);
+      setStatus('error', err.message || i18n('error'));
       btn.disabled = false;
     }
   });
