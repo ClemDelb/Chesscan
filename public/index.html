@@ -1364,7 +1364,7 @@ function renderBoard(p, fromSq, toSq) {
       const file  = flipped ? 8 - col : col + 1;
       const rank  = flipped ? row + 1 : 8 - row;
       const key   = `${file}${rank}`;
-      const light = (file + rank) % 2 === 0;
+      const light = (file + rank) % 2 === 1;
 
       const sq = document.createElement('div');
       sq.className = `sq ${light ? 'light' : 'dark'}`;
